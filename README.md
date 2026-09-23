@@ -6,7 +6,6 @@ So I built one. This is it.
 
 **What it isn't:** a prompt that spits out a finished post. I tried that path first and it reads exactly like what it is — generic, hedge-y, nobody's voice. **What it is:** a chain of small, dumb, single-job skills that get a draft 80% of the way there in my actual voice, so the 20% I do by hand (the part that decides if something's actually good) is the only part left for me to do.
 
-Inspired by [this piece](https://freerollhq.substack.com/p/i-moved-my-contentos-from-claude) on a creator's self-improving content system — rebuilt from scratch, scaled down, as a way to actually learn how AI "skills" and independent grading loops work instead of just reading about them.
 
 ## The problem this solves
 
