@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 1500px;
+    background: #F5F1E7;
+    font-family: 'Inter', sans-serif;
+    color: #1B2A2E;
+    padding: 70px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: #1B2A2E;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+  .label::before {
+    content: "";
+    width: 22px; height: 22px;
+    border: 3px solid #1B2A2E;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 58px;
+    line-height: 1.18;
+    color: #16232A;
+    margin-bottom: 40px;
+    max-width: 980px;
+  }
+
+  .sub {
+    font-size: 24px;
+    line-height: 1.55;
+    color: #3A3F3C;
+    max-width: 920px;
+    margin-bottom: 56px;
+  }
+  .sub b { color: #16232A; }
+
+  .stat-row {
+    display: flex;
+    gap: 36px;
+    margin-top: auto;
+    margin-bottom: 56px;
+  }
+  .stat-box {
+    flex: 1;
+    background: #163B3C;
+    color: #F5F1E7;
+    border-radius: 14px;
+    padding: 36px 32px;
+  }
+  .stat-box.accent {
+    background: #E0592F;
+  }
+  .stat-num {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+  .stat-label {
+    font-size: 19px;
+    line-height: 1.4;
+    opacity: 0.92;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 2px solid #16232A22;
+    padding-top: 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 17px;
+    color: #4A4F4C;
+  }
+  .footer .handle { color: #16232A; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="label">AI PRODUCT NOTES</div>
+
+  <h1>{{HEADLINE}}</h1>
+
+  <div class="sub">{{SUBTEXT}}</div>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">{{STAT1_NUM}}</div>
+      <div class="stat-label">{{STAT1_LABEL}}</div>
+    </div>
+    <div class="stat-box accent">
+      <div class="stat-num">{{STAT2_NUM}}</div>
+      <div class="stat-label">{{STAT2_LABEL}}</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>{{TOPIC_TAG}}</div>
+    <div class="handle">Bhaghi &middot; AI Product Manager</div>
+  </div>
+</body>
+</html>
