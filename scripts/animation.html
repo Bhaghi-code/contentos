@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; }
+  body {
+    position: relative;
+    background: #F5F1E7;
+    font-family: 'Inter', sans-serif;
+    color: #1B2A2E;
+    overflow: hidden;
+  }
+
+  .scene {
+    position: absolute;
+    inset: 0;
+    padding: 72px 120px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .scene.show { opacity: 1; }
+
+  .title {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 46px;
+    color: #16232A;
+    margin-bottom: 14px;
+  }
+  .subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    color: #5A5F5C;
+    margin-bottom: 48px;
+  }
+
+  /* ---- scene 1 ---- */
+  .panels { display: flex; gap: 32px; flex: 1; }
+  .panel { flex: 1; border-radius: 18px; padding: 36px; display: flex; flex-direction: column; }
+  .panel.left { background: #EDE7D8; border: 2px solid #16232A22; }
+  .panel.right { background: #163B3C; color: #F5F1E7; }
+
+  .panel-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 28px; opacity: 0.85;
+  }
+
+  .content-box { flex: 1; display: flex; align-items: center; justify-content: center; }
+
+  .typing-text { font-size: 30px; line-height: 1.6; color: #2A2F2C; max-width: 640px; }
+  .cursor {
+    display: inline-block; width: 3px; height: 26px; background: #16232A;
+    margin-left: 2px; animation: blink 0.8s steps(1) infinite; vertical-align: middle;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .json-box {
+    font-family: 'IBM Plex Mono', monospace; font-size: 28px; line-height: 1.9;
+    background: #0F2B2C; border-radius: 12px; padding: 32px 38px;
+    opacity: 0; transform: scale(0.94); transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .json-box.show { opacity: 1; transform: scale(1); }
+  .json-key { color: #8FD6C4; }
+  .json-val { color: #F2C879; }
+
+  .timer {
+    font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600;
+    margin-top: 24px; padding-top: 20px; border-top: 1px solid currentColor; opacity: 0.55;
+  }
+  .panel.left .timer { border-color: #16232A33; color: #16232A; }
+  .panel.right .timer { border-color: #F5F1E733; color: #F5F1E7; }
+
+  .caption {
+    text-align: center; font-family: 'Source Serif 4', serif; font-weight: 600;
+    font-size: 26px; color: #16232A; margin-top: 44px; opacity: 0; transition: opacity 0.5s ease;
+  }
+  .caption.show { opacity: 1; }
+
+  /* ---- scene 2 ---- */
+  .stat-row { display: flex; gap: 32px; margin-bottom: 32px; }
+  .stat-row-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 17px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase; color: #5A5F5C; margin-bottom: 16px;
+  }
+  .mini-card {
+    flex: 1; border-radius: 16px; padding: 30px 28px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .mini-card.dim { background: #EDE7D8; border: 2px solid #16232A22; }
+  .mini-card.bright { background: #E0592F; color: #FBEEE6; }
+  .mini-card .who {
+    font-family: 'IBM Plex Mono', monospace; font-size: 14px; letter-spacing: 0.06em;
+    text-transform: uppercase; opacity: 0.75;
+  }
+  .mini-card .num {
+    font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 40px;
+    opacity: 0; transform: translateY(6px); transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .mini-card .num.show { opacity: 1; transform: translateY(0); }
+
+  .final-caption {
+    text-align: center; font-family: 'Source Serif 4', serif; font-weight: 700;
+    font-size: 30px; color: #16232A; margin-top: auto; opacity: 0; transition: opacity 0.6s ease;
+  }
+  .final-caption.show { opacity: 1; }
+  .final-caption .fine {
+    display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 500;
+    font-size: 15px; color: #5A5F5C; margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="scene show" id="scene1">
+    <div class="title">Same question. Different shape of answer.</div>
+    <div class="subtitle">approve this claim, yes or no?</div>
+
+    <div class="panels">
+      <div class="panel left">
+        <div class="panel-label">Typical LLM call</div>
+        <div class="content-box">
+          <div class="typing-text" id="typing"><span class="cursor"></span></div>
+        </div>
+        <div class="timer" id="timer-left">0.00s</div>
+      </div>
+      <div class="panel right">
+        <div class="panel-label">Jev</div>
+        <div class="content-box">
+          <div class="json-box" id="json">{<br>&nbsp;&nbsp;<span class="json-key">"decision"</span>: <span class="json-val">"approved"</span>,<br>&nbsp;&nbsp;<span class="json-key">"confidence"</span>: <span class="json-val">0.94</span><br>}</div>
+        </div>
+        <div class="timer" id="timer-right">0.00s</div>
+      </div>
+    </div>
+
+    <div class="caption" id="caption1">Same answer. ~50x the wait.</div>
+  </div>
+
+  <div class="scene" id="scene2">
+    <div class="title">Same task. Different economics.</div>
+    <div class="subtitle">per TypeSafe's own published numbers</div>
+
+    <div>
+      <div class="stat-row-label">Response time</div>
+      <div class="stat-row">
+        <div class="mini-card dim">
+          <div class="who">Typical LLM call</div>
+          <div class="num" id="num-latency-llm">up to 329s</div>
+        </div>
+        <div class="mini-card bright">
+          <div class="who">Jev</div>
+          <div class="num" id="num-latency-jev">70&ndash;500ms</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="stat-row-label">Cost per 1M input tokens</div>
+      <div class="stat-row">
+        <div class="mini-card dim">
+          <div class="who">Typical LLM call</div>
+          <div class="num" id="num-cost-llm">$0.20&ndash;$10</div>
+        </div>
+        <div class="mini-card bright">
+          <div class="who">Jev</div>
+          <div class="num" id="num-cost-jev">$0.042</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="final-caption" id="final-caption">
+      Up to ~4,700x faster. Up to ~240x cheaper.
+      <span class="fine">based on TypeSafe's own published ranges, per call</span>
+    </div>
+  </div>
+
+<script>
+  const typingEl = document.getElementById('typing');
+  const timerLeft = document.getElementById('timer-left');
+  const timerRight = document.getElementById('timer-right');
+  const jsonBox = document.getElementById('json');
+  const caption1 = document.getElementById('caption1');
+  const scene1 = document.getElementById('scene1');
+  const scene2 = document.getElementById('scene2');
+
+  const fullText = "Based on the information provided, I believe this claim should likely be approved, though there are some factors worth considering further.";
+
+  const startTime = performance.now();
+  function tick() {
+    const elapsed = (performance.now() - startTime) / 1000;
+    timerLeft.textContent = elapsed.toFixed(2) + 's';
+    if (elapsed < 4.6) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  let i = 0;
+  function typeChar() {
+    if (i <= fullText.length) {
+      typingEl.innerHTML = fullText.slice(0, i) + '<span class="cursor"></span>';
+      i++;
+      setTimeout(typeChar, 32);
+    }
+  }
+  setTimeout(typeChar, 400);
+
+  setTimeout(() => {
+    timerRight.textContent = '0.09s';
+    jsonBox.classList.add('show');
+  }, 500);
+
+  setTimeout(() => caption1.classList.add('show'), 5200);
+
+  // cross-fade into scene 2
+  setTimeout(() => {
+    scene1.classList.remove('show');
+    scene2.classList.add('show');
+  }, 6200);
+
+  // stat row 1 reveal
+  setTimeout(() => {
+    document.getElementById('num-latency-llm').classList.add('show');
+    document.getElementById('num-latency-jev').classList.add('show');
+  }, 7100);
+
+  // stat row 2 reveal
+  setTimeout(() => {
+    document.getElementById('num-cost-llm').classList.add('show');
+    document.getElementById('num-cost-jev').classList.add('show');
+  }, 8400);
+
+  // final caption
+  setTimeout(() => {
+    document.getElementById('final-caption').classList.add('show');
+  }, 9800);
+</script>
+</body>
+</html>
