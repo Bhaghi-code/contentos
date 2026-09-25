@@ -31,3 +31,7 @@ Reason: [one line]
 ```
 
 Then proceed to invoke that drafting skill with the topic and any source material.
+
+## Note for every archetype
+
+Every drafting skill reads `voice.md` first, then `growth-engine` (hook-generation and structural mechanics that apply regardless of archetype), then drafts. This routing decision only picks which drafting skill's topic-specific rules apply on top of those two.

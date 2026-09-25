@@ -17,7 +17,7 @@ Every time I asked an AI to "write a LinkedIn post about X," I'd re-explain the 
 The rules live once, in `voice.md`. Every drafting skill reads it first, so I never repeat myself. A topic goes through a chain of single-purpose skills:
 
 ```
-topic → router → drafting skill (reads voice.md) → hook check → anti-slop pass → grader
+topic → router → drafting skill (reads voice.md, then growth-engine) → hook check → anti-slop pass → grader
 ```
 
 The grader is the part that actually changed the output quality. It runs as an independent pass that never sees why the draft made the choices it made — only the finished text against a fixed checklist. A model grading its own writing is generous to itself by default; a cold, separate check isn't. A post needs 60/80 with no single category below 4 to pass. If it fails, it comes back with one specific fix, not "try again."
@@ -28,10 +28,11 @@ The grader is the part that actually changed the output quality. It runs as an i
 voice.md                       - single source of truth for tone, structure, banned phrases
 skills/
   post-router/SKILL.md          - classifies a topic into an archetype, never drafts
+  growth-engine/SKILL.md        - hook-generation + structural growth mechanics, read by every drafting skill after voice.md
   news-breakdown/SKILL.md       - drafts reach/TOFU posts from external news/studies/benchmarks
   hook-check/SKILL.md           - checks the opening 1-2 lines against what has actually worked
   anti-slop/SKILL.md            - strips AI writing tells (wrap-up paragraphs, hedging, em-dashes)
-  post-grader/SKILL.md          - independent scoring pass, pass/fail with one fix if it fails
+  post-grader/SKILL.md          - independent scoring pass, with binary gate checks that override the score
   morning-scan/SKILL.md         - daily research scan for topic ideas, scored against audience fit
 ```
 
