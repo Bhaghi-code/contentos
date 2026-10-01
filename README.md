@@ -13,8 +13,8 @@ Every time I asked an AI to "write a LinkedIn post about X," I'd re-explain the 
 
 ## How it actually works
 
-# Pipeline, visualized
-![ContentOS pipeline](assets/ContentOS pipeline diagram image.jpg)
+### Pipeline, visualized
+![ContentOS pipeline](assets/contentos-pipeline-diagram.jpg)
 
 The rules live once, in `voice.md`. Every drafting skill reads it first, so I never repeat myself. A topic goes through a chain of single-purpose skills:
 
